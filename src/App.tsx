@@ -7,17 +7,22 @@ import Adashboard from './Dashboard/Adashboard';
 import Udashboard from './Dashboard/Udashboard';
 import MyCreation from './Dashboard/UserPages/MyCreation';
 import MyUploads from './Dashboard/UserPages/MyUploads';
-import Settings from './Dashboard/UserPages/Settings';
+import Settings from './Dashboard/Settings';
 import { useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { GlobalContext } from './GlobalContext/GlobalContext';
-import LoginForm from './AdminDash/AdminLogin';
+
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
 import PasswordReset from './pages/PasswordReset';
+
+import ChangePassword from './Dashboard/ChangePassword';
+
+import UserProfile from './Dashboard/UserProfile';
+
 const App: FC = () => {
     //const token = Cookies.get('token');
     const { isLogin, isLoginHandler, isAdmin, isAdminHandler, apiBaseUrl, userInfo, UserInfoHandler } =
@@ -63,6 +68,8 @@ const App: FC = () => {
             <div className="App">
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
+                    <Route path="/changePassword" element={<ChangePassword />} />
+                    <Route path="/profile" element={<UserProfile />} />
 
                     {!isLogin ? (
                         <>
@@ -89,7 +96,6 @@ const App: FC = () => {
                             <Route path="/udashboard" element={<Udashboard />} />
                             <Route path="/mycreation" element={<MyCreation />} />
                             <Route path="/myuploads" element={<MyUploads />} />
-                            <Route path="/ettings" element={<Settings />} />
                         </>
                     ) : (
                         <></>

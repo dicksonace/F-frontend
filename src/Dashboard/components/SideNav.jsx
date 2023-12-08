@@ -18,7 +18,8 @@ const SideNav = () => {
             icon: <VscGitPullRequestCreate />,
         },
         { name: 'My Uploads', link: '/myupload', icon: <IoCloudUploadOutline /> },
-        { name: 'Settings', link: '/settings', icon: <CiSettings /> },
+        { name: 'Profile', link: '/profile', icon: <IoCloudUploadOutline /> },
+        { name: 'Change Password', link: '/changePassword', icon: <CiSettings /> },
     ];
     return (
         <div>
