@@ -70,6 +70,7 @@ const App: FC = () => {
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/changePassword" element={<ChangePassword />} />
                     <Route path="/profile" element={<UserProfile />} />
+                    <Route path="/create-new-design" element={<Test />} />
 
                     {!isLogin ? (
                         <>

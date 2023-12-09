@@ -1,8 +1,11 @@
-import React, { ChangeEvent, FC, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, useRef, useState, useContext, useEffect } from 'react';
 import XIcon from '@duyank/icons/regular/X';
 import { isMobile } from 'react-device-detect';
 import { useEditor } from '@lidojs/editor';
 import { fetchSvgContent } from '@lidojs/utils';
+import axios from 'axios';
+import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import Cookies from 'js-cookie';
 interface UploadContentProps {
     visibility: boolean;
     onClose: () => void;
@@ -24,6 +27,7 @@ const UploadContent: FC<UploadContentProps> = ({ visibility, onClose }) => {
             }
         };
     };
+
     const addSvg = async (url: string) => {
         const ele = await fetchSvgContent(url);
         const viewBox = ele.getAttribute('viewBox')?.split(' ') || [];
@@ -35,11 +39,49 @@ const UploadContent: FC<UploadContentProps> = ({ visibility, onClose }) => {
         }
     };
 
+    const { apiBaseUrl, userInfo } = useContext(GlobalContext);
+    const token = Cookies.get('token');
+
     const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
+        const preset_key = 'm5miwp6h';
+        const cloud_name = 'dy2b051y4';
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
+                console.log(file);
+
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', preset_key);
+
+                axios
+                    .post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
+                    .then((res) => {
+                        let imageUrl = res.data.url;
+
+                        let uploadData = {
+                            title: 'ff',
+                            content: imageUrl,
+                        };
+
+                        const headers = axios
+                            .post(`${apiBaseUrl}uploads/`, uploadData, {
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    authorization: `Bearer ${token}`,
+                                },
+                            })
+                            .then((res) => {
+                                console.log(res);
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
                 setImages((prevState) => {
                     return prevState.concat([
                         { url: reader.result as string, type: file.type === 'image/svg+xml' ? 'svg' : 'image' },
@@ -49,6 +91,31 @@ const UploadContent: FC<UploadContentProps> = ({ visibility, onClose }) => {
             reader.readAsDataURL(file);
         }
     };
+
+    useEffect(() => {
+        axios
+            .get(`${apiBaseUrl}uploads/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                res.data.map((file) => {
+                    setImages((prevState) => {
+                        return prevState.concat([
+                            {
+                                url: file.content as string,
+                                type: file.content.type === 'image/svg+xml' ? 'svg' : 'image',
+                            },
+                        ]);
+                    });
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
     return (
         <div
             css={{
