@@ -5,6 +5,7 @@ import { GlobalContext } from '../GlobalContext/GlobalContext';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,18 +16,16 @@ const PasswordReset = () => {
     const { isAdmin, isLogin, isLoginHandler, isAdminHandler, apiBaseUrl } = useContext(GlobalContext);
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //   if (isLogin) {
-    //     // navigate("/adashboard/");
-    //   }
-    // }, [isLogin]);
+    const [isSucess, setIsSuccess] = useState(false);
+
+    const { token, id } = useParams();
+
+    // console.log(id);
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // Add your authentication logic here
-        // isLoginHandler(true);
 
-        if (email == '') {
+        if (newPassword == '') {
             toast.warning('Enter email address', {
                 position: 'top-right',
                 autoClose: 5000,
@@ -40,7 +39,7 @@ const PasswordReset = () => {
             return;
         }
 
-        if (password == '') {
+        if (confirmPassword == '') {
             toast.warning('Enter your password', {
                 position: 'top-right',
                 autoClose: 5000,
@@ -55,9 +54,10 @@ const PasswordReset = () => {
         }
 
         axios
-            .post(`${apiBaseUrl}users/login`, {
-                email,
-                password,
+            .post(`${apiBaseUrl}users/resetPassword`, {
+                userId: id,
+                password: newPassword,
+                token,
             })
             .then((res) => {
                 // console.log(res.status);
@@ -84,15 +84,16 @@ const PasswordReset = () => {
                             progress: undefined,
                             theme: 'light',
                         });
-                        isLoginHandler(true);
-                        isAdminHandler(res.data.isAdmin);
-                        Cookies.set('token', res.data.token);
 
-                        if (res.data.isAdmin) {
-                            navigate('/adashboard');
-                        } else {
-                            navigate('/udashboard');
-                        }
+                        console.log(res);
+
+                        setIsSuccess(res.data.success)
+
+                        // if (res.data.isAdmin) {
+                        //     navigate('/adashboard');
+                        // } else {
+                        //     navigate('/udashboard');
+                        // }
                     }
                 }
             })
@@ -140,6 +141,13 @@ const PasswordReset = () => {
                     >
                         Reset
                     </button>
+
+                    {isSucess ?? (
+                        <Link to="/login">
+                            {' '}
+                            <p className="text-blue-500"> Click here to sign In</p>
+                        </Link>
+                    )}
                 </div>
             </form>
             <ToastContainer />

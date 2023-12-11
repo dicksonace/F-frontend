@@ -1,4 +1,4 @@
-import React, { ChangeEvent, forwardRef, ForwardRefRenderFunction, useRef, useContext } from 'react';
+import React, { ChangeEvent, forwardRef, ForwardRefRenderFunction, useRef, useContext, useEffect } from 'react';
 import PlayCircleIcon from '@duyank/icons/regular/PlayCircle';
 import { downloadObjectAsJson } from '../utils/download';
 import { useEditor } from '@lidojs/editor';
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { GlobalContext } from '../GlobalContext/GlobalContext';
 import Cookies from 'js-cookie';
+import { useParams } from 'react-router-dom';
 
 interface HeaderLayoutProps {
     openPreview: () => void;
@@ -17,6 +18,30 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
     const handleExport = () => {
         downloadObjectAsJson('file', query.serialize());
     };
+
+    const { apiBaseUrl, userInfo } = useContext(GlobalContext);
+    const token = Cookies.get('token');
+
+    const { id } = useParams();
+    // console.log(id);
+
+    useEffect(() => {
+        axios
+            .get(`${apiBaseUrl}canvases/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+                console.log(res.data.content);
+                actions.setData(res.data.content);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [id]);
 
     const handleImport = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
@@ -31,12 +56,9 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
         }
     };
 
-    const { apiBaseUrl, userInfo } = useContext(GlobalContext);
-    const token = Cookies.get('token');
-
     const saveHandler = () => {
         let jsonString = query.serialize();
-        console.log(apiBaseUrl);
+        // console.log(apiBaseUrl);
 
         // const jsonString = JSON.stringify(md, null, 2);
 
@@ -44,26 +66,51 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
         // const blob = new Blob([jsonString], { type: 'application/json' });
         // console.log(blob);
 
-        let jsonData = {
-            createBy: userInfo._id,
-            title: '',
-            description: '',
-            content: jsonString,
-        };
+        if (id) {
+            console.log('update mee');
 
-        axios
-            .post(`${apiBaseUrl}canvases`, jsonData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+            let jsonData = {
+                createBy: userInfo._id,
+                title: 'jj',
+                description: 'jj',
+                content: jsonString,
+            };
+
+            axios
+                .put(`${apiBaseUrl}canvases/${id}`, jsonData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } else {
+            let jsonData = {
+                createBy: userInfo._id,
+                title: 'jj',
+                description: 'jj',
+                content: jsonString,
+            };
+
+            axios
+                .post(`${apiBaseUrl}canvases`, jsonData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     };
     return (
         <div

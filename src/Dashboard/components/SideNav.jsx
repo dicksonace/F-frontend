@@ -6,33 +6,63 @@ import { IoCloudUploadOutline } from 'react-icons/io5';
 import { CiSettings } from 'react-icons/ci';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { useContext } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const SideNav = () => {
-    const { isAdmin } = useContext(GlobalContext);
-    const navItem = [
-        { name: 'Create New', link: '/create-new-design', icon: <CiSettings /> },
-        { name: 'Template', link: '/udashboard', icon: <LuLayoutTemplate /> },
-        {
-            name: 'My Creation',
-            link: '/mycreation',
-            icon: <VscGitPullRequestCreate />,
-        },
-        { name: 'My Uploads', link: '/myupload', icon: <IoCloudUploadOutline /> },
-        { name: 'Profile', link: '/profile', icon: <IoCloudUploadOutline /> },
-        { name: 'Change Password', link: '/changePassword', icon: <CiSettings /> },
-    ];
+    const { isAdmin, isSidebarOpen, IsSidebarOpenHandler } = useContext(GlobalContext);
+
+    let navItem = [];
+
+    if (isAdmin) {
+        navItem = [
+            { name: 'Create New', link: '/create-new-design', icon: <CiSettings /> },
+            { name: 'Template', link: '/udashboard', icon: <LuLayoutTemplate /> },
+            {
+                name: 'My Creation',
+                link: '/mycreation',
+                icon: <VscGitPullRequestCreate />,
+            },
+
+            { name: 'Profile', link: '/profile', icon: <IoCloudUploadOutline /> },
+            { name: 'Change Password', link: '/changePassword', icon: <CiSettings /> },
+        ];
+    } else {
+        navItem = [
+            { name: 'Create New', link: '/create-new-design', icon: <CiSettings /> },
+
+            {
+                name: 'My Creation',
+                link: '/mycreation',
+                icon: <VscGitPullRequestCreate />,
+            },
+
+            { name: 'Settings', link: '/settings', icon: <CiSettings /> },
+        ];
+    }
+
+    const toggleSidebar = () => {
+        IsSidebarOpenHandler(!isSidebarOpen);
+    };
     return (
-        <div>
-            <div className="flex justify-center h-40 content-center items-center">
-                <h1 className="text-4xl font-semibold mb-4 font-mono">Fasti</h1>
+        <div
+            className={`fixed inset-y-0 left-0 top-0 w-64 bg-gray-800 text-white p-4 transform transition-transform ease-in-out duration-300 z-10 ${
+                isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            } sm:translate-x-0 sm:static sm:bg-transparent sm:text-black sm:p-0 md:bg-gray-800`}
+        >
+            <div className="flex justify-end items-end p-4">
+                {/* Your content goes here */}
+                <button className="text-xl focus:outline-none sm:hidden  flex justify-end" onClick={toggleSidebar}>
+                    <FaTimes />
+                </button>
             </div>
-            <nav>
+
+            <nav className=" h-full p-10 ">
                 <ul>
                     {navItem.map((item) => {
                         return (
                             <>
                                 {' '}
-                                <li className="mb-2">
+                                <li className="mb-2 text-white">
                                     <Link to={item.link} className="hover:text-gray-300 flex ">
                                         <span className="px-2">{item.icon}</span>
                                         <span> {item.name}</span>

@@ -3,7 +3,7 @@ import SideNav from './components/SideNav';
 import Header from './components/Header';
 import { GlobalContext } from '../GlobalContext/GlobalContext';
 import axios from 'axios';
-import Cookies from 'js-cookie';  
+import Cookies from 'js-cookie';
 
 const Adashboard = () => {
     const [numberOfUsers, setNumberOfUsers] = useState(0);
@@ -17,7 +17,7 @@ const Adashboard = () => {
         Authorization: `Bearer ${token}`,
     };
 
-    useEffect(() => { 
+    useEffect(() => {
         // let token = Cookies.get('token');
         axios
             .get(`${apiBaseUrl}admins/get-all-users`, {
@@ -36,9 +36,8 @@ const Adashboard = () => {
         <>
             <div className="flex h-screen bg-gray-100">
                 {/* Side Navigation */}
-                <aside className="w-64 bg-gray-800 p-6 text-white">
-                    <SideNav />
-                </aside>
+
+                <SideNav />
 
                 {/* Main Content */}
                 <main className="flex-1 flex flex-col overflow-hidden">

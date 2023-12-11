@@ -121,22 +121,9 @@ const s = () => {
     };
 
     return (
-        <div className="flex h-screen bg-gray-100">
-            {/* Side Navigation */}
-            <aside className="w-64 bg-[#313233] p-6 text-white">
-                <SideNav />
-            </aside>
+       
 
-            {/* Main Content */}
-            <main className="flex-1 flex flex-col overflow-hidden">
-                {/* Top Navigation */}
-                <Header />
-
-                {/* Main Content Area */}
-                <section className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 p-6">
-                    <h2 className="text-2xl font-semibold mb-4">Templates</h2>
-
-                    <div className="min-h-screen flex items-center justify-center">
+                    <div className="h-auto flex justify-center">
                         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3">
                             <div className="mb-4">
                                 <h1 className="text-center p-5 text-3xl font-bold">Change Password</h1>
@@ -190,9 +177,7 @@ const s = () => {
                         </form>
                         <ToastContainer />
                     </div>
-                </section>
-            </main>
-        </div>
+              
     );
 };
 

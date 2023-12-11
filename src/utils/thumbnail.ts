@@ -8,4 +8,4 @@ export const getThumbnail = (url: string) => {
 
     const fileNameWithoutExtension = segments?.join('.');
     return `${parts.join('/')}/${fileNameWithoutExtension}m.${fileExtension}`;
-};
+}; 

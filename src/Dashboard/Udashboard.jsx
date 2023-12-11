@@ -12,9 +12,8 @@ const Udashboard = () => {
         <>
             <div className="flex h-screen bg-gray-100">
                 {/* Side Navigation */}
-                <aside className="w-64 bg-[#313233] p-6 text-white">
-                    <SideNav />
-                </aside>
+
+                <SideNav />
 
                 {/* Main Content */}
                 <main className="flex-1 flex flex-col overflow-hidden">

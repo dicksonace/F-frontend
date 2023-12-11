@@ -7,6 +7,7 @@ const initialState = {
     isAdmin: false,
     apiBaseUrl: 'https://fasti-production.up.railway.app/api/',
     userInfo: {},
+    isSidebarOpen: false,
 };
 
 const reducer = (state, action) => {
@@ -17,6 +18,8 @@ const reducer = (state, action) => {
             return { ...state, isLogin: action.payload };
         case 'UserInfo':
             return { ...state, userInfo: action.payload };
+        case 'IsSidebarOpen':
+            return { ...state, isSidebarOpen: action.payload };
         default:
             return state;
     }
@@ -46,6 +49,13 @@ const GlobalContextProvider = ({ children }) => {
         });
     };
 
+    const IsSidebarOpenHandler = (data) => {
+        dispatch({
+            type: 'IsSidebarOpen',
+            payload: data,
+        });
+    };
+
     return (
         <GlobalContext.Provider
             value={{
@@ -56,6 +66,8 @@ const GlobalContextProvider = ({ children }) => {
                 isAdminHandler,
                 userInfo: state.userInfo,
                 UserInfoHandler,
+                isSidebarOpen: state.isSidebarOpen,
+                IsSidebarOpenHandler,
             }}
         >
             {children}

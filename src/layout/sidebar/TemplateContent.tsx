@@ -18,6 +18,7 @@ const TemplateContent: FC<{ onClose: () => void }> = ({ onClose }) => {
     useAsync(async () => {
         const response = await axios.get<Template[]>('/templates');
         setTemplates(response.data);
+
         setIsLoading(false);
     }, []);
     const addPage = async (data: SerializedPage) => {
@@ -30,7 +31,7 @@ const TemplateContent: FC<{ onClose: () => void }> = ({ onClose }) => {
         <div
             css={{
                 width: '100%',
-                height: '100%',
+                height: '100%', 
                 flexDirection: 'column',
                 overflowY: 'auto',
                 display: 'flex',

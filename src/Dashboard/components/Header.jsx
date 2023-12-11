@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { FaBars, FaUser, FaSignOutAlt } from 'react-icons/fa';
 
 const Header = () => {
-    const { apiBaseUrl, isAdminHandler, isLoginHandler } = useContext(GlobalContext);
+    const { apiBaseUrl, isAdminHandler, isLoginHandler, isSidebarOpen, IsSidebarOpenHandler } =
+        useContext(GlobalContext);
     const navigate = useNavigate();
     const logoutHandler = () => {
         axios
@@ -22,17 +24,27 @@ const Header = () => {
                 console.log(err);
             });
     };
+
+    const toggleSidebar = () => {
+        IsSidebarOpenHandler(!isSidebarOpen);
+    };
     return (
-        <header className="bg-white shadow-md p-4">
-            {/* Add your top navigation content here */}
-            <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold">tOGGLER</h2>
-                <h2 className="text-xl font-semibold" onClick={logoutHandler}>
-                    Logout
-                </h2>
-                {/* Add user profile or other top navigation elements */}
+        <div className="bg-gray-800 text-white p-4">
+            <button className="text-xl mr-4 focus:outline-none sm:hidden" onClick={toggleSidebar}>
+                <FaBars />
+            </button>
+           <div className='flex justify-between'>
+           <span className="text-lg font-semibold">Fasti</span>
+            <div className="flex items-center">
+                <button className="text-xl mr-4 focus:outline-none">
+                    <FaUser />
+                </button>
+                <button className="text-xl focus:outline-none" onClick={logoutHandler}>
+                    <FaSignOutAlt />
+                </button>
             </div>
-        </header>
+           </div>
+        </div>
     );
 };
 

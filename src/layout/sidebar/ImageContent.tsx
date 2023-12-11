@@ -29,6 +29,7 @@ const ImageContent: FC<{ onClose: () => void }> = ({ onClose }) => {
         };
     };
 
+
     return (
         <div
             css={{

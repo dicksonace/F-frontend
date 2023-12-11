@@ -9,6 +9,7 @@ import AppLayerSettings from './layout/AppLayerSettings';
 import { Editor, GetFontQuery, PageControl } from '@lidojs/editor';
 import { FontData } from '@lidojs/core';
 
+
 const Test = () => {
     const leftSidebarRef = useRef<HTMLDivElement>(null);
     const [openPreview, setOpenPreview] = useState(false);
