@@ -51,6 +51,7 @@ const App: FC = () => {
                     } else {
                         isLoginHandler(false);
                         isAdminHandler(false);
+                     
                     }
                 })
                 .catch((err) => {
