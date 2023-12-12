@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { GlobalContext } from '../GlobalContext/GlobalContext';
 import Cookies from 'js-cookie';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 interface HeaderLayoutProps {
     openPreview: () => void;
@@ -24,6 +25,8 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
 
     const { id } = useParams();
     // console.log(id);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -67,8 +70,6 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
         // console.log(blob);
 
         if (id) {
-            console.log('update mee');
-
             let jsonData = {
                 createBy: userInfo._id,
                 title: 'jj',
@@ -85,9 +86,44 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
                 })
                 .then((res) => {
                     console.log(res);
+
+                    if (res.status == 200) {
+                        toast.success('Saved', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                        });
+                    } else {
+                        toast.error('Something went wrong, please try again later', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                        });
+                    }
                 })
                 .catch((err) => {
                     console.log(err);
+
+                    toast.error('Something went wrong, please try again later', {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'light',
+                    });
                 });
         } else {
             let jsonData = {
@@ -106,9 +142,44 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
                 })
                 .then((res) => {
                     console.log(res);
+                    if (res.status == 201) {
+                        toast.success('Saved', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                        });
+
+                        navigate(`/design/${res.data._id}`);
+                    } else {
+                        toast.error('Something went wrong, please try again later', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                        });
+                    }
                 })
                 .catch((err) => {
                     console.log(err);
+                    toast.error('Something went wrong, please try again later', {
+                        position: 'top-right',
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'light',
+                    });
                 });
         }
     };
@@ -223,6 +294,7 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
                     Preview
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

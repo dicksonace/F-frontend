@@ -75,6 +75,7 @@ const App: FC = () => {
                     <Route path="/design/:id" element={<Test />} />
                     <Route path="/mycreation" element={<MyCreation />} />
                     <Route path="/settings" element={<Settings />} />
+                    <Route path="/udashboard" element={<Udashboard />} />
 
                     {!isLogin ? (
                         <>
