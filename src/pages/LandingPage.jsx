@@ -3,6 +3,10 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PageLoader from '../components/PageLoader';
 import BodyContent from '../components/BodyContent';
+import BottomPage from '../components/BottomPage';
+import Shop from '../components/Shop';
+import Search from '../components/Search';
+import SaveIdeas from '../components/SaveIdeas';
 
 const LandingPage = () => {
     const [loading, setLoading] = useState(true);
@@ -22,6 +26,10 @@ const LandingPage = () => {
                 {loading && <PageLoader />}
                 <Header />
                 <BodyContent />
+                <Search />
+                <SaveIdeas />
+                <Shop />
+                <BottomPage />
                 <Footer />
             </div>
         </div>

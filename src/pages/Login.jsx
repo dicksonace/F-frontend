@@ -13,7 +13,16 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const { isAdmin, isLogin, isLoginHandler, isAdminHandler, apiBaseUrl } = useContext(GlobalContext);
+
     const navigate = useNavigate();
+
+    if (isLogin) {
+        if (isAdmin) {
+            navigate('/adashboard');
+        } else {
+            navigate('/udashboard');
+        }
+    }
 
     // useEffect(() => {
     //   if (isLogin) {

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import Test from './Test'; // used to display editor
 import Publish from './Publish'; //used to display output. this support SSR.
 
-import { Routes, Route, Link, Redirect, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, Redirect, Switch, useNavigate } from 'react-router-dom';
 import Adashboard from './Dashboard/Adashboard';
 import Udashboard from './Dashboard/Udashboard';
 import MyCreation from './Dashboard/UserPages/MyCreation';
@@ -51,7 +51,6 @@ const App: FC = () => {
                     } else {
                         isLoginHandler(false);
                         isAdminHandler(false);
-                     
                     }
                 })
                 .catch((err) => {
@@ -68,49 +67,54 @@ const App: FC = () => {
     return (
         <>
             <div className="App">
-                <Routes>
-                    <Route path="/" element={<LandingPage />} />
-                    <Route path="/changePassword" element={<ChangePassword />} />
-                    <Route path="/profile" element={<UserProfile />} />
-                    <Route path="/create-new-design" element={<Test />} />
-                    <Route path="/design/:id" element={<Test />} />
-                    <Route path="/mycreation" element={<MyCreation />} />
-                    <Route path="/settings" element={<Settings />} />
-                    <Route path="/udashboard" element={<Udashboard />} />
+              
+                    <Routes>
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/changePassword" element={<ChangePassword />} />
+                        <Route path="/profile" element={<UserProfile />} />
+                        <Route path="/create-new-design" element={<Test />} />
+                        <Route path="/design/:id" element={<Test />} />
+                        <Route path="/mycreation" element={<MyCreation />} />
+                        <Route path="/settings" element={<Settings />} />
+                        <Route path="/udashboard" element={<Udashboard />} />
 
-                    {!isLogin ? (
-                        <>
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/signup" element={<Signup />} />
-                            <Route path="/forgotpassword" element={<ForgotPassword />} />
-                            <Route path="/passwordReset/:token/:id" element={<PasswordReset />} />
-                            <Route path="/emailVerification/:token" element={<EmailVerification />} />
-                        </>
-                    ) : (
-                        <> </>
-                    )}
+                        <Route path="/404" element={<LandingPage />} />
 
-                    {isLogin && isAdmin ? (
-                        <>
-                            <Route path="/adashboard" element={<Adashboard />} />
-                        </>
-                    ) : (
-                        <></>
-                    )}
+                        {!isLogin ? (
+                            <>
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/signup" element={<Signup />} />
+                                <Route path="/forgotpassword" element={<ForgotPassword />} />
+                                <Route path="/passwordReset/:token/:id" element={<PasswordReset />} />
+                                <Route path="/emailVerification/:token" element={<EmailVerification />} />
+                            </>
+                        ) : (
+                            <> </>
+                        )}
 
-                    {isLogin && !isAdmin ? (
-                        <>
-                            <Route path="/create-new-design" element={<Test />} />
-                            <Route path="/udashboard" element={<Udashboard />} />
-                            <Route path="/mycreation" element={<MyCreation />} />
-                            <Route path="/myuploads" element={<MyUploads />} />
-                        </>
-                    ) : (
-                        <></>
-                    )}
+                        {isLogin && isAdmin ? (
+                            <>
+                                <Route path="/adashboard" element={<Adashboard />} />
+                            </>
+                        ) : (
+                            <></>
+                        )}
 
-                    {/* <Route path="/*" element={<>{navigate('/')}</>} /> */}
-                </Routes>
+                        {isLogin && !isAdmin ? (
+                            <>
+                                <Route path="/create-new-design" element={<Test />} />
+                                <Route path="/udashboard" element={<Udashboard />} />
+                                <Route path="/mycreation" element={<MyCreation />} />
+                                <Route path="/myuploads" element={<MyUploads />} />
+                            </>
+                        ) : (
+                            <></>
+                        )}
+
+                        {/* <Route path="/*" element={<>{navigate('/')}</>} /> */}
+                    </Routes>
+                    {/* <Redirect from="*" to="/" /> */}
+           
             </div>
         </>
     );
