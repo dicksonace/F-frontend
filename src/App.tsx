@@ -23,7 +23,7 @@ import EmailVerification from './pages/EmailVerification';
 import ChangePassword from './Dashboard/ChangePassword';
 import UserProfile from './Dashboard/UserProfile';
 import Settings from './Dashboard/Settings';
-import Team from "./Dashboard/UserPages/Team"
+import Team from './Dashboard/UserPages/Team';
 
 const App: FC = () => {
     //const token = Cookies.get('token');
@@ -78,6 +78,7 @@ const App: FC = () => {
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/udashboard" element={<Udashboard />} />
                     <Route path="/team" element={<Team />} />
+                    <Route path="/share/:id" element={<Test />} />
 
                     <Route path="/404" element={<LandingPage />} />
 

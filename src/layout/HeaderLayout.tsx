@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { GlobalContext } from '../GlobalContext/GlobalContext';
 import Cookies from 'js-cookie';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { FaShareNodes } from 'react-icons/fa6';
 import { IoPersonAddSharp } from 'react-icons/io5';
@@ -215,6 +215,29 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
     const closeShareModal = () => {
         setShareModalIsOpen(false);
     };
+
+    //sharing canvas code
+    const location = useLocation();
+
+    // Access the route name from the location object
+    const routeName = location.pathname.substring(1, 6);
+
+    if (routeName == 'share') {
+        console.log('sharing', id);
+
+        axios
+            .get(`${apiBaseUrl}canvases/verify/${id}`)
+            .then((res) => {
+                console.log(res);
+                console.log(res.data.content);
+                actions.setData(res.data.content);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    } else {
+        console.log('not sharing');
+    }
 
     return (
         <div
