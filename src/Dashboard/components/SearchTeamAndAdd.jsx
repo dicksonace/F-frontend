@@ -12,6 +12,8 @@ const SearchTeamAndAdd = ({ id, openCollabsModel, onCloseCollabs }) => {
     const [searchedData, setSearchData] = useState([]);
     const token = Cookies.get('token');
 
+    // console.log(createCollabs);
+
     const handleInputChange = (e) => {
         setSearchQuery(e.target.value);
     };
@@ -106,7 +108,8 @@ const SearchTeamAndAdd = ({ id, openCollabsModel, onCloseCollabs }) => {
             memberId: userId,
         };
 
-        let collabsId = createCollabs._id;
+        let collabsId = createCollabs[0]._id;
+        console.log(collabsId);
 
         await axios
             .put(`${apiBaseUrl}collaborations/${collabsId}/add-member`, collabData, {
@@ -193,7 +196,7 @@ const SearchTeamAndAdd = ({ id, openCollabsModel, onCloseCollabs }) => {
             });
     };
 
-    const [collabsData, setCollabsData] = useState([]);
+    // const [collabsData, setCollabsData] = useState([]);
     // useEffect(() => {
     //     // console.log(id);
     //     axios
@@ -214,32 +217,40 @@ const SearchTeamAndAdd = ({ id, openCollabsModel, onCloseCollabs }) => {
 
     // console.log(collabsData);
 
-    const [createCollabs, setCreateCollabs] = useState({});
-    // useEffect(() => {
-    //     axios
-    //         .get(`${apiBaseUrl}collaborations/`, {
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 authorization: `Bearer ${token}`,
-    //             },
-    //         })
-    //         .then((res) => {
-    //             if (res.status == 200) {
-    //                 let col = res.data.filter((data) => data.canvasId == id);
-    //                 setCreateCollabs(col[0]);
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // }, [handleAddItem, handleRemoveItem]);
+    const [createCollabs, setCreateCollabs] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get(`${apiBaseUrl}collaborations/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                if (res.status == 200) {
+                    let col = res.data.filter((data) => data.canvasId == id);
+                    setCreateCollabs(col);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     console.log(createCollabs);
+
+    if (createCollabs.length == 0) {
+        console.log(createCollabs.length);
+    } else {
+        console.log('not col');
+        createCollabs[0].collaborators.map((user) => console.log(user.isAdmin));
+    }
 
     return (
         <>
             <Modal isOpen={openCollabsModel} title="Search Team Memeber" onClose={onCloseCollabs}>
-                {createCollabs.length == null ? (
+                {createCollabs.length == 0 ? (
                     <>
                         <div className="flex justify-center items-center">
                             <button
@@ -282,8 +293,8 @@ const SearchTeamAndAdd = ({ id, openCollabsModel, onCloseCollabs }) => {
                             })}
                         </ul>
 
-                        <ul className="list-disc py-4 text-white">
-                            {createCollabs.collaborators.map((user) => {
+                         <ul className="list-disc py-4 text-white">
+                            {createCollabs[0].collaborators.map((user) => {
                                 return (
                                     <li className="flex items-center justify-between p-4 my-2 bg-gray-700 rounded-md shadow-sm ">
                                         <span className="text-white">#</span>
@@ -293,9 +304,10 @@ const SearchTeamAndAdd = ({ id, openCollabsModel, onCloseCollabs }) => {
                                             Remove
                                         </button>
                                     </li>
+                                  
                                 );
                             })}
-                        </ul>
+                        </ul> 
                     </>
                 )}
 

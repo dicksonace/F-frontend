@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 const CopyToClipboardForm = ({ id, openModel, onClose }) => {
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(`http://localhost:5173/share/${id}`);
     const [isCopied, setIsCopied] = useState(false);
 
     const handleInputChange = (e) => {
@@ -39,7 +39,6 @@ const CopyToClipboardForm = ({ id, openModel, onClose }) => {
         <>
             <Modal isOpen={openModel} title="Share " onClose={onClose}>
                 <div className="p-4">
-                    <label className="block mb-2 text-lg font-semibold">Enter Text:</label>
                     <input
                         type="text"
                         value={inputValue}
