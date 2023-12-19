@@ -32,7 +32,7 @@ const CopyToClipboardForm = ({ id, openModel, onClose }) => {
         // Reset the copied state after a short delay
         setTimeout(() => {
             setIsCopied(false);
-        }, 1500);
+        }, 5500);
     };
 
     return (
