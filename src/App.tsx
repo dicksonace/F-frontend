@@ -23,6 +23,7 @@ import EmailVerification from './pages/EmailVerification';
 import ChangePassword from './Dashboard/ChangePassword';
 import UserProfile from './Dashboard/UserProfile';
 import Settings from './Dashboard/Settings';
+import Team from "./Dashboard/UserPages/Team"
 
 const App: FC = () => {
     //const token = Cookies.get('token');
@@ -67,54 +68,53 @@ const App: FC = () => {
     return (
         <>
             <div className="App">
-              
-                    <Routes>
-                        <Route path="/" element={<LandingPage />} />
-                        <Route path="/changePassword" element={<ChangePassword />} />
-                        <Route path="/profile" element={<UserProfile />} />
-                        <Route path="/create-new-design" element={<Test />} />
-                        <Route path="/design/:id" element={<Test />} />
-                        <Route path="/mycreation" element={<MyCreation />} />
-                        <Route path="/settings" element={<Settings />} />
-                        <Route path="/udashboard" element={<Udashboard />} />
+                <Routes>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/changePassword" element={<ChangePassword />} />
+                    <Route path="/profile" element={<UserProfile />} />
+                    <Route path="/create-new-design" element={<Test />} />
+                    <Route path="/design/:id" element={<Test />} />
+                    <Route path="/mycreation" element={<MyCreation />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/udashboard" element={<Udashboard />} />
+                    <Route path="/team" element={<Team />} />
 
-                        <Route path="/404" element={<LandingPage />} />
+                    <Route path="/404" element={<LandingPage />} />
 
-                        {!isLogin ? (
-                            <>
-                                <Route path="/login" element={<Login />} />
-                                <Route path="/signup" element={<Signup />} />
-                                <Route path="/forgotpassword" element={<ForgotPassword />} />
-                                <Route path="/passwordReset/:token/:id" element={<PasswordReset />} />
-                                <Route path="/emailVerification/:token" element={<EmailVerification />} />
-                            </>
-                        ) : (
-                            <> </>
-                        )}
+                    {!isLogin ? (
+                        <>
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/signup" element={<Signup />} />
+                            <Route path="/forgotpassword" element={<ForgotPassword />} />
+                            <Route path="/passwordReset/:token/:id" element={<PasswordReset />} />
+                            <Route path="/emailVerification/:token" element={<EmailVerification />} />
+                        </>
+                    ) : (
+                        <> </>
+                    )}
 
-                        {isLogin && isAdmin ? (
-                            <>
-                                <Route path="/adashboard" element={<Adashboard />} />
-                            </>
-                        ) : (
-                            <></>
-                        )}
+                    {isLogin && isAdmin ? (
+                        <>
+                            <Route path="/adashboard" element={<Adashboard />} />
+                        </>
+                    ) : (
+                        <></>
+                    )}
 
-                        {isLogin && !isAdmin ? (
-                            <>
-                                <Route path="/create-new-design" element={<Test />} />
-                                <Route path="/udashboard" element={<Udashboard />} />
-                                <Route path="/mycreation" element={<MyCreation />} />
-                                <Route path="/myuploads" element={<MyUploads />} />
-                            </>
-                        ) : (
-                            <></>
-                        )}
+                    {isLogin && !isAdmin ? (
+                        <>
+                            <Route path="/create-new-design" element={<Test />} />
+                            <Route path="/udashboard" element={<Udashboard />} />
+                            <Route path="/mycreation" element={<MyCreation />} />
+                            <Route path="/myuploads" element={<MyUploads />} />
+                        </>
+                    ) : (
+                        <></>
+                    )}
 
-                        {/* <Route path="/*" element={<>{navigate('/')}</>} /> */}
-                    </Routes>
-                    {/* <Redirect from="*" to="/" /> */}
-           
+                    {/* <Route path="/*" element={<>{navigate('/')}</>} /> */}
+                </Routes>
+                {/* <Redirect from="*" to="/" /> */}
             </div>
         </>
     );

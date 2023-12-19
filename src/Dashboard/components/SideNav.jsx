@@ -36,6 +36,9 @@ const SideNav = () => {
                 icon: <VscGitPullRequestCreate />,
             },
 
+            { name: 'Team', link: '/team', icon: <CiSettings /> },
+
+
             { name: 'Settings', link: '/settings', icon: <CiSettings /> },
         ];
     }

@@ -1,4 +1,12 @@
-import React, { ChangeEvent, forwardRef, ForwardRefRenderFunction, useRef, useContext, useEffect } from 'react';
+import React, {
+    ChangeEvent,
+    forwardRef,
+    ForwardRefRenderFunction,
+    useRef,
+    useContext,
+    useEffect,
+    useState,
+} from 'react';
 import PlayCircleIcon from '@duyank/icons/regular/PlayCircle';
 import { downloadObjectAsJson } from '../utils/download';
 import { useEditor } from '@lidojs/editor';
@@ -8,6 +16,10 @@ import { GlobalContext } from '../GlobalContext/GlobalContext';
 import Cookies from 'js-cookie';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { FaShareNodes } from 'react-icons/fa6';
+import { IoPersonAddSharp } from 'react-icons/io5';
+import Share from '../Dashboard/components/Share';
+import SearchTeamAndAdd from '../Dashboard/components/SearchTeamAndAdd';
 
 interface HeaderLayoutProps {
     openPreview: () => void;
@@ -183,6 +195,27 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
                 });
         }
     };
+
+    // share and team
+    const [coallabsModalIsOpen, setCollabsModalIsOpen] = useState(false);
+    const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
+
+    const openCollabsModal = () => {
+        setCollabsModalIsOpen(true);
+    };
+
+    const closeCollabsModal = () => {
+        setCollabsModalIsOpen(false);
+    };
+
+    const openShareModal = () => {
+        setShareModalIsOpen(true);
+    };
+
+    const closeShareModal = () => {
+        setShareModalIsOpen(false);
+    };
+
     return (
         <div
             ref={ref}
@@ -197,6 +230,8 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
                 },
             }}
         >
+            <Share id={id} openModel={shareModalIsOpen} onClose={closeShareModal} />
+            <SearchTeamAndAdd id={id} openCollabsModel={coallabsModalIsOpen} onCloseCollabs={closeCollabsModal} />
             <div
                 css={{
                     color: '#3d8eff',
@@ -205,6 +240,14 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
             >
                 <div css={{ color: 'white', height: 46 }}>
                     <img src={'./assets/logo.png'} css={{ maxHeight: '100%' }} />
+                </div>
+            </div>
+            <div css={{ display: 'flex', alignItems: 'center' }}>
+                <div className="text-3xl text-bold py-3 px-5 cursor-pointer hover:bg-gray-800 hover:text-white">
+                    <FaShareNodes onClick={() => openShareModal()} />
+                </div>
+                <div className="text-3xl text-bold py-3 px-5 cursor-pointer hover:bg-gray-800 hover:text-white">
+                    <IoPersonAddSharp onClick={() => openCollabsModal()} />
                 </div>
             </div>
             <div css={{ display: 'flex', alignItems: 'center' }}>
