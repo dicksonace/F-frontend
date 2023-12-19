@@ -230,8 +230,18 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
                 },
             }}
         >
-            <Share id={id} openModel={shareModalIsOpen} onClose={closeShareModal} />
-            <SearchTeamAndAdd id={id} openCollabsModel={coallabsModalIsOpen} onCloseCollabs={closeCollabsModal} />
+            {id == null ? (
+                <>null</>
+            ) : (
+                <>
+                    <Share id={id} openModel={shareModalIsOpen} onClose={closeShareModal} />
+                    <SearchTeamAndAdd
+                        id={id}
+                        openCollabsModel={coallabsModalIsOpen}
+                        onCloseCollabs={closeCollabsModal}
+                    />
+                </>
+            )}
             <div
                 css={{
                     color: '#3d8eff',
@@ -243,12 +253,18 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
                 </div>
             </div>
             <div css={{ display: 'flex', alignItems: 'center' }}>
-                <div className="text-3xl text-bold py-3 px-5 cursor-pointer hover:bg-gray-800 hover:text-white">
-                    <FaShareNodes onClick={() => openShareModal()} />
-                </div>
-                <div className="text-3xl text-bold py-3 px-5 cursor-pointer hover:bg-gray-800 hover:text-white">
-                    <IoPersonAddSharp onClick={() => openCollabsModal()} />
-                </div>
+                {id == null ? (
+                    <></>
+                ) : (
+                    <>
+                        <div className="text-3xl text-bold py-3 px-5 cursor-pointer hover:bg-gray-800 hover:text-white">
+                            <FaShareNodes onClick={() => openShareModal()} />
+                        </div>
+                        <div className="text-3xl text-bold py-3 px-5 cursor-pointer hover:bg-gray-800 hover:text-white">
+                            <IoPersonAddSharp onClick={() => openCollabsModal()} />
+                        </div>
+                    </>
+                )}
             </div>
             <div css={{ display: 'flex', alignItems: 'center' }}>
                 <div

@@ -214,28 +214,32 @@ const SearchTeamAndAdd = ({ id, openCollabsModel, onCloseCollabs }) => {
 
     // console.log(collabsData);
 
-    const [createCollabs, setCreateCollabs] = useState([]);
-    useEffect(() => {
-        axios
-            .get(`${apiBaseUrl}collaborations/`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                let col = res.data.filter((data) => data.canvasId == id);
-                setCreateCollabs(col[0]);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [handleAddItem, handleRemoveItem]);
+    const [createCollabs, setCreateCollabs] = useState({});
+    // useEffect(() => {
+    //     axios
+    //         .get(`${apiBaseUrl}collaborations/`, {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 authorization: `Bearer ${token}`,
+    //             },
+    //         })
+    //         .then((res) => {
+    //             if (res.status == 200) {
+    //                 let col = res.data.filter((data) => data.canvasId == id);
+    //                 setCreateCollabs(col[0]);
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // }, [handleAddItem, handleRemoveItem]);
+
+    console.log(createCollabs);
 
     return (
         <>
             <Modal isOpen={openCollabsModel} title="Search Team Memeber" onClose={onCloseCollabs}>
-                {createCollabs.length == 0 ? (
+                {createCollabs.length == null ? (
                     <>
                         <div className="flex justify-center items-center">
                             <button
