@@ -38,24 +38,52 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
     const { id } = useParams();
     // console.log(id);
 
+    //sharing canvas code
+
+    const [isSharing, setIsSharing] = useState(false);
+    const location = useLocation();
+    // Access the route name from the location object
+    const routeName = location.pathname.substring(1, 6);
+
+    if (routeName == 'share') {
+        // setIsSharing(true);
+    } else {
+        // console.log('not sharing');
+    }
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios
-            .get(`${apiBaseUrl}canvases/${id}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                console.log(res);
-                console.log(res.data.content);
-                actions.setData(res.data.content);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (routeName == 'share') {
+            axios
+                .get(`${apiBaseUrl}canvases/share/${id}`)
+                .then((res) => {
+                    // console.log(res);
+                    // console.log(res.data.content);
+                    actions.setData(res.data.content);
+                    if (res.status === 200) {
+                    }
+                })
+                .catch((err) => {
+                    // console.log(err);
+                });
+        } else {
+            axios
+                .get(`${apiBaseUrl}canvases/${id}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((res) => {
+                    console.log(res);
+                    console.log(res.data.content);
+                    actions.setData(res.data.content);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     }, [id]);
 
     const handleImport = (e: ChangeEvent<HTMLInputElement>) => {
@@ -216,29 +244,6 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
         setShareModalIsOpen(false);
     };
 
-    //sharing canvas code
-    const location = useLocation();
-
-    // Access the route name from the location object
-    const routeName = location.pathname.substring(1, 6);
-
-    if (routeName == 'share') {
-        console.log('sharing', id);
-
-        axios
-            .get(`${apiBaseUrl}canvases/verify/${id}`)
-            .then((res) => {
-                console.log(res);
-                console.log(res.data.content);
-                actions.setData(res.data.content);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    } else {
-        console.log('not sharing');
-    }
-
     return (
         <div
             ref={ref}
@@ -283,26 +288,41 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
                         <div className="text-3xl text-bold py-3 px-5 cursor-pointer hover:bg-gray-800 hover:text-white">
                             <FaShareNodes onClick={() => openShareModal()} />
                         </div>
-                        <div className="text-3xl text-bold py-3 px-5 cursor-pointer hover:bg-gray-800 hover:text-white">
-                            <IoPersonAddSharp onClick={() => openCollabsModal()} />
-                        </div>
+
+                        {routeName == 'share' ? (
+                            <></>
+                        ) : (
+                            <>
+                                {' '}
+                                <div className="text-3xl text-bold py-3 px-5 cursor-pointer hover:bg-gray-800 hover:text-white">
+                                    <IoPersonAddSharp onClick={() => openCollabsModal()} />
+                                </div>
+                            </>
+                        )}
                     </>
                 )}
             </div>
             <div css={{ display: 'flex', alignItems: 'center' }}>
-                <div
-                    css={{
-                        margin: '0 16px',
-                        cursor: 'pointer',
-                        color: '#fff',
-                        fontWeight: 700,
-                        ':hover': {
-                            textDecoration: 'underline',
-                        },
-                    }}
-                >
-                    <Link to="/udashboard"> Dashboard</Link>
-                </div>
+                {routeName == 'share' ? (
+                    <></>
+                ) : (
+                    <>
+                        <div
+                            css={{
+                                margin: '0 16px',
+                                cursor: 'pointer',
+                                color: '#fff',
+                                fontWeight: 700,
+                                ':hover': {
+                                    textDecoration: 'underline',
+                                },
+                            }}
+                        >
+                            <Link to="/udashboard"> Dashboard</Link>
+                        </div>
+                    </>
+                )}
+
                 <div
                     css={{
                         margin: '0 16px',
@@ -339,20 +359,26 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
                     Export
                 </div>
 
-                <div
-                    css={{
-                        margin: '0 16px',
-                        cursor: 'pointer',
-                        color: '#fff',
-                        fontWeight: 700,
-                        ':hover': {
-                            textDecoration: 'underline',
-                        },
-                    }}
-                    onClick={() => saveHandler()}
-                >
-                    Save
-                </div>
+                {routeName == 'share' ? (
+                    <></>
+                ) : (
+                    <>
+                        <div
+                            css={{
+                                margin: '0 16px',
+                                cursor: 'pointer',
+                                color: '#fff',
+                                fontWeight: 700,
+                                ':hover': {
+                                    textDecoration: 'underline',
+                                },
+                            }}
+                            onClick={() => saveHandler()}
+                        >
+                            Save
+                        </div>
+                    </>
+                )}
 
                 <div
                     css={{
