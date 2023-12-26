@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import Test from './Test'; // used to display editor
 import Publish from './Publish'; //used to display output. this support SSR.
 
-import { Routes, Route, Link, Redirect, Switch, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, Redirect, Switch, useNavigate, Navigate } from 'react-router-dom';
 import Adashboard from './Dashboard/Adashboard';
 import Udashboard from './Dashboard/Udashboard';
 import MyCreation from './Dashboard/UserPages/MyCreation';
@@ -81,6 +81,7 @@ const App: FC = () => {
                     <Route path="/share/:id" element={<Test />} />
 
                     <Route path="/404" element={<LandingPage />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
 
                     {!isLogin ? (
                         <>

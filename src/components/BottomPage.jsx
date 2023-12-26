@@ -121,15 +121,16 @@ const BottomPage = () => {
         <div className="h-screen w-full flex items-center justify-between relative" style={styles}>
             <div className="absolute inset-0 bg-black opacity-50"></div>
             {/* Left Section */}
-            <div className="flex-1  absolute left-0 top-1/2 transform -translate-y-1/2 text-white text-left p-8 z-10 ">
+
+            <div className="flex-1 left-0  transform -translate-y-1/2 text-white text-left p-8 z-10 ">
                 {/* Your content for the left section goes here */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white text-center mt-8 px-60">
+                <h1 className="text-4xl  md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white text-center mt-8 px-6">
                     Sign Up to Get Your Ideas
                 </h1>
             </div>
 
             {/* Right Section */}
-            <div className="flex-1 absolute right-0 top-1/2 transform -translate-y-1/2 text-white text-right p-8 z-10">
+            <div className="flex-1  right-0 transform -translate-y-1/2 text-white text-right p-8 mt-52 z-10">
                 {/* Your content for the right section goes here */}
                 <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
                     <div className="mb-4">

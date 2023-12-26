@@ -28,6 +28,7 @@ const SideNav = () => {
         ];
     } else {
         navItem = [
+            { name: 'Dashboard', link: '/udashboard', icon: <CiSettings /> },
             { name: 'Create New', link: '/create-new-design', icon: <CiSettings /> },
 
             {

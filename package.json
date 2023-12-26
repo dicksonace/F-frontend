@@ -43,6 +43,7 @@
         "@lidojs/editor": "0.0.9",
         "@lidojs/screen": "0.0.3",
         "@lidojs/utils": "0.0.3",
+        "@material-tailwind/react": "^2.1.8",
         "autoprefixer": "^10.4.16",
         "axios": "^1.4.0",
         "color": "^4.2.3",

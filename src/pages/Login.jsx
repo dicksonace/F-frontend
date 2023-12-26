@@ -5,6 +5,7 @@ import { GlobalContext } from '../GlobalContext/GlobalContext';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
+import { Card, Input, Checkbox, Button, Typography } from '@material-tailwind/react';
 
 import 'react-toastify/dist/ReactToastify.css';
 
