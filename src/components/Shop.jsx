@@ -10,7 +10,7 @@ const Shop = () => {
         <div className="flex h-screen">
             {/* Left Section */}
             <div className="flex-1 p-8 bg-gray-200" style={styles}>
-              <div className="absolute inset-0 bg-black opacity-50"></div>
+              {/* <div className="absolute inset-0 bg-black opacity-50"></div> */}
                 {/* Your content for the left section goes here */}
                 <h2 className="text-2xl font-bold">Left Section</h2>
             </div>
