@@ -26,11 +26,7 @@ const LandingPage = () => {
                 {loading && <PageLoader />}
                 <Header />
                 <BodyContent />
-                <Search />
-                <SaveIdeas />
-                <Shop />
-                <BottomPage />
-                <Footer />
+               
             </div>
         </div>
     );
