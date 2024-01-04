@@ -259,7 +259,7 @@ const HeaderLayout: ForwardRefRenderFunction<HTMLDivElement, HeaderLayoutProps> 
             }}
         >
             {id == null ? (
-                <>null</>
+               <></>
             ) : (
                 <>
                     <Share id={id} openModel={shareModalIsOpen} onClose={closeShareModal} />
