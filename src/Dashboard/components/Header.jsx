@@ -4,6 +4,7 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { FaBars, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import Dropdown from "./Dropdown";
 
 const Header = () => {
     const { apiBaseUrl, isAdminHandler, isLoginHandler, isSidebarOpen, IsSidebarOpenHandler } =
@@ -36,12 +37,9 @@ const Header = () => {
            <div className='flex justify-between'>
            <span className="text-lg font-semibold">Fasti</span>
             <div className="flex items-center">
-                <button className="text-xl mr-4 focus:outline-none">
-                    <FaUser />
-                </button>
-                <button className="text-xl focus:outline-none" onClick={logoutHandler}>
-                    <FaSignOutAlt />
-                </button>
+              
+     
+                <Dropdown />
             </div>
            </div>
         </div>
