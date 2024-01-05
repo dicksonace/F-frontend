@@ -8,6 +8,7 @@ import { GlobalContext } from '../../GlobalContext/GlobalContext';
 import { useContext } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
+import { FaTachometerAlt, FaRegSun, FaChevronRight, FaWrench } from 'react-icons/fa';
 
 const SideNav = () => {
     const { isAdmin, isSidebarOpen, IsSidebarOpenHandler, userInfo } = useContext(GlobalContext);
@@ -16,80 +17,70 @@ const SideNav = () => {
 
     if (isAdmin) {
         navItem = [
-            { name: 'Create New', link: '/create-new-design', icon: <CiSettings /> },
-            { name: 'Template', link: '/udashboard', icon: <LuLayoutTemplate /> },
+            { name: 'Template', link: '/udashboard', icon: <LuLayoutTemplate color="white" /> },
             {
                 name: 'My Creation',
                 link: '/mycreation',
-                icon: <VscGitPullRequestCreate />,
+                icon: <VscGitPullRequestCreate color="white" />,
             },
 
-            { name: 'Profile', link: '/profile', icon: <IoCloudUploadOutline /> },
-            { name: 'Change Password', link: '/changePassword', icon: <CiSettings /> },
+            { name: 'Profile', link: '/profile', icon: <IoCloudUploadOutline color="white" /> },
+            { name: 'Change Password', link: '/changePassword', icon: <CiSettings color="white" /> },
         ];
     } else {
         navItem = [
-            { name: 'Dashboard', link: '/udashboard', icon: <CiSettings /> },
-
+            { name: 'Create New', link: '/create-new-design', icon: <CiSettings color="white" /> },
             {
                 name: 'My Creation',
                 link: '/mycreation',
-                icon: <VscGitPullRequestCreate />,
+                icon: <VscGitPullRequestCreate color="white" />,
             },
 
-            { name: 'Team', link: '/team', icon: <CiSettings /> },
+            { name: 'Team', link: '/team', icon: <CiSettings color="white" /> },
 
-            { name: 'Settings', link: '/settings', icon: <CiSettings /> },
+            { name: 'Settings', link: '/settings', icon: <CiSettings color="white" /> },
         ];
     }
-
-   
 
     const toggleSidebar = () => {
         IsSidebarOpenHandler(!isSidebarOpen);
     };
 
-  
-
-    console.log(userInfo);
     return (
-        <div
-            className={`fixed inset-y-0 left-0 top-0 w-184 bg-gray-800 text-white p-4 transform transition-transform ease-in-out duration-300 z-10 ${
-                isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-            } sm:translate-x-0 sm:static sm:bg-transparent sm:text-black sm:p-0 md:bg-gray-800`}
-        >
-            <div className="flex justify-end items-end p-4">
-                {/* Your content goes here */}
-                <button className="text-xl focus:outline-none sm:hidden  flex justify-end" onClick={toggleSidebar}>
-                    <FaTimes />
-                </button>
+        <div className="bg-[#4E73DF] h-screen px-[25px]">
+            <div className="px-[15px] py-[30px] flex item justify-center border-b-[1px] border-[#EDEDED]/[0.3]">
+                <h1 className="text-white text-[20px] leading-[24px] font-extrabold cursor-pointer">Fasti</h1>
             </div>
-           
-            <nav className=" h-full p-10 ">
-                <ul>
-                    <li className="mb-6 text-white bg-blue-400 py-2 text-center text-[18px]">
-                        <Link to={`/create-new-design`} className="hover:text-gray-300 flex ">
-                            <span className="px-2">
-                                <MdCreateNewFolder />
-                            </span>
-                            <span> Create New</span>
+            {userInfo.isAdmin ? (
+                <></>
+            ) : (
+                <>
+                    {' '}
+                    <Link to="/udashboard">
+                        <div className="flex items-center gap-[15px] py-[20px border-b-[1px] border-[#EDEDED]/[0.3]">
+                            <FaTachometerAlt color="white" />
+                            <p className="text-[14px] leading-[20px] font-bold text-white">Dashboard</p>
+                        </div>
+                    </Link>
+                </>
+            )}
+            <div className="pt-[15px] border-b-[1px]  border-[#EDEDED]/[0.3]">
+                <p className="text-[10px] font-extrabold leading-[16px] text-white/[0.4]"></p>
+
+                {navItem.map((item) => {
+                    return (
+                        <Link to={item.link}>
+                            <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
+                                <div className="flex items-center gap-[10px]">
+                                    {item.icon}
+                                    <p className="text-[14px] leading-[20px] font-normal text-white">{item.name}</p>
+                                </div>
+                                <FaChevronRight color="white" />
+                            </div>
                         </Link>
-                    </li>
-                    {navItem.map((item) => {
-                        return (
-                            <>
-                                {' '}
-                                <li className="mb-2 text-white text-[18px]">
-                                    <Link to={item.link} className="hover:text-gray-300 flex ">
-                                        <span className="px-2">{item.icon}</span>
-                                        <span> {item.name}</span>
-                                    </Link>
-                                </li>
-                            </>
-                        );
-                    })}
-                </ul>
-            </nav>
+                    );
+                })}
+            </div>
         </div>
     );
 };

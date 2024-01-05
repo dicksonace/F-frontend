@@ -4,10 +4,12 @@ import { useContext } from 'react';
 import { FaBars, FaUser, FaSignOutAlt } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Dropdown = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { isAdmin, isSidebarOpen, IsSidebarOpenHandler, userInfo,  apiBaseUrl, isAdminHandler, isLoginHandler } = useContext(GlobalContext);
+    const { isAdmin, isSidebarOpen, IsSidebarOpenHandler, userInfo, apiBaseUrl, isAdminHandler, isLoginHandler } =
+        useContext(GlobalContext);
 
     const navigate = useNavigate();
     const logoutHandler = () => {
@@ -70,15 +72,15 @@ const Dropdown = () => {
                 >
                     <div className="py-1 text-center" role="none">
                         {/* Dropdown items */}
-                      
-                        <a
-                            href="#"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+
+                        <button
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none "
                             role="menuitem"
+                            onClick={logoutHandler}
                         >
-                               <button className="text-xl focus:outline-none flex" onClick={logoutHandler}> <span className='mx-4'> Logout</span> <FaSignOutAlt /></button>
-                        </a>
-                   
+                            {' '}
+                            <span className="mx-4"> Logout</span> <FaSignOutAlt />
+                        </button>
                     </div>
                 </div>
             )}
