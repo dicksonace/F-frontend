@@ -74,7 +74,7 @@ const Dropdown = () => {
                         {/* Dropdown items */}
 
                         <button
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none "
+                            className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none flex items-center justify-between w-full"
                             role="menuitem"
                             onClick={logoutHandler}
                         >

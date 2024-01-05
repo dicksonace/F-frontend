@@ -10,6 +10,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
 import { FaTachometerAlt, FaRegSun, FaChevronRight, FaWrench } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
+import { RiTeamLine } from "react-icons/ri";
 
 const SideNav = () => {
     const { isAdmin, isSidebarOpen, IsSidebarOpenHandler, userInfo } = useContext(GlobalContext);
@@ -37,7 +38,7 @@ const SideNav = () => {
                 icon: <VscGitPullRequestCreate color="white" />,
             },
 
-            { name: 'Team', link: '/team', icon: <CiSettings color="white" /> },
+            { name: 'Team', link: '/team', icon: <RiTeamLine color="white" /> },
 
             { name: 'Settings', link: '/settings', icon: <CiSettings color="white" /> },
         ];
