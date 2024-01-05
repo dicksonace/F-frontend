@@ -7,15 +7,17 @@ import Cookies from 'js-cookie';
 import { FaRegCalendarMinus } from 'react-icons/fa';
 
 const Udashboard = () => {
-    const { apiBaseUrl } = useContext(GlobalContext);
+    const { apiBaseUrl, isSidebarOpen } = useContext(GlobalContext);
+
+    console.log(isSidebarOpen);
 
     return (
         <>
             <div className="flex ">
-                <div className="basis-[12%] h-[100vh] ">
+               
                     <SideNav />
-                </div>
-                <div className="basis-[88%] ">
+         
+                <div className="basis-[87%] ">
                     <Header />
 
                     <div className="pt-[25px] px-[2px] bg-[#F8F9FC]">
@@ -24,7 +26,7 @@ const Udashboard = () => {
                                 DashBoard
                             </h1>
                         </div>
-                        <div className="grid grid-cols-4 gap-[30px] pb-[15px]">
+                        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-[30px] pb-[15px]">
                             <div className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-[#4E73DF] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
                                 <div className="">
                                     <h2 className="text-[#B5B9DF] text-[11px] leading-[17px] font--bold">

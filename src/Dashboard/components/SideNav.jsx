@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
 import { FaTachometerAlt, FaRegSun, FaChevronRight, FaWrench } from 'react-icons/fa';
+import { CiMenuBurger } from 'react-icons/ci';
 
 const SideNav = () => {
     const { isAdmin, isSidebarOpen, IsSidebarOpenHandler, userInfo } = useContext(GlobalContext);
@@ -47,9 +48,13 @@ const SideNav = () => {
     };
 
     return (
+        <div className={`basis-[13%] h-[100vh] lg:block ${isSidebarOpen ? 'fixed z-40' : 'hidden'}`}>
         <div className="bg-[#4E73DF] h-screen px-[25px]">
-            <div className="px-[15px] py-[30px] flex item justify-center border-b-[1px] border-[#EDEDED]/[0.3]">
+            <div className="px-[15px] py-[30px] flex item justify-between border-b-[1px] border-[#EDEDED]/[0.3]">
                 <h1 className="text-white text-[20px] leading-[24px] font-extrabold cursor-pointer">Fasti</h1>
+                <div className="lg:hidden" onClick={toggleSidebar}>
+                    <FaTimes color="black" />
+                </div>
             </div>
             {userInfo.isAdmin ? (
                 <></>
@@ -81,6 +86,7 @@ const SideNav = () => {
                     );
                 })}
             </div>
+        </div>
         </div>
     );
 };
