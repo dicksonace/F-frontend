@@ -1,0 +1,10 @@
+import { Node } from 'prosemirror-model';
+export declare const getMarkAttrs: (node: Node) => Record<string, string[]>;
+export declare const getAllMarks: (node: Node) => Record<string, string[]>;
+export declare const getAttrs: (doc: Node) => Record<string, string[]>;
+export declare const getAllAttrs: (doc: Node) => Record<string, string[]>;
+export declare const getFontFamily: (attrs: Record<string, string[]>) => string[];
+export declare const getFontSize: (attrs: Record<string, string[]>) => number[];
+export declare const getLineHeight: (attrs: Record<string, string[]>) => number[];
+export declare const getLetterSpacing: (attrs: Record<string, string[]>) => number[];
+export declare const getColor: (attrs: Record<string, string[]>, markAttrs: Record<string, string[]>) => string[];
