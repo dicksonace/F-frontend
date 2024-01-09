@@ -22,6 +22,9 @@ const Team = () => {
     let userId = userInfo._id;
     console.log(userId);
 
+    const [mycollabs, setMyCollabs] = useState([]);
+    const [collabsBeenAdded, setCollabsBeenAdded] = useState([]);
+
     useEffect(() => {
         axios
             .get(`${apiBaseUrl}users/dashboard/collaboration/${userId}`, {
@@ -33,6 +36,19 @@ const Team = () => {
             .then((res) => {
                 // seteditoredata(res.data.canvases);
                 console.log(res);
+                const myCollasFilter = res.data.data.filter((pp) => pp.createdBy == userId);
+                setMyCollabs(myCollasFilter);
+
+                const collabsBeenAddedFilter = res.data.data.filter((data) => {
+                    // console.log(data.collaborators.length);
+                    for (let i = 0; i < data.collaborators.length; i++) {
+                        if (data.collaborators[i]._id == userId) {
+                            return data;
+                        }
+                    }
+                });
+                setCollabsBeenAdded(collabsBeenAddedFilter);
+
                 return;
             })
             .catch((err) => {
@@ -40,7 +56,8 @@ const Team = () => {
             });
     }, [userId]);
 
-    console.log(editordata);
+    console.log(mycollabs);
+    console.log(collabsBeenAdded);
 
     const Card = ({ imageUrl, title, description, link }) => {
         return (
@@ -75,15 +92,23 @@ const Team = () => {
 
                     {/* Main Content Area */}
                     <section className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 p-6">
-                        <h2 className="text-2xl font-semibold mb-4">My Creation</h2>
+                        <h2 className="text-2xl font-bold mb-2">My Collaborations</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+                            {mycollabs.map((card, index) => (
+                                <Card key={index} link={`/design/${card._id}`} title={card.title} />
+                            ))}
+                        </div>
+
+                        <h2 className="text-2xl font-bold mb-2">Collaborations Been Added</h2>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+                            {collabsBeenAdded.map((card, index) => (
+                                <Card key={index} link={`/design/${card._id}`} title={card.title} />
+                            ))}
+                        </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 p-4 h-[400px]">
                             {/* Card 1 */}
 
-                            <p className="text-2xl font-extrabold">T40</p>
-                            {editordata.map((d) => {
-                                return;
-                            })}
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
                                 {editordata.map((card, index) => (
                                     <Card key={index} link={`/design/${card._id}`} title={card.title} />
