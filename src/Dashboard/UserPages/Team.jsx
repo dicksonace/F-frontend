@@ -83,7 +83,7 @@ const Team = () => {
             <div className="flex h-screen bg-gray-100">
                 {/* Side Navigation */}
 
-                <SideNav /> 
+                <SideNav />
 
                 {/* Main Content */}
                 <main className="flex-1 flex flex-col overflow-hidden b">
@@ -95,25 +95,15 @@ const Team = () => {
                         <h2 className="text-2xl font-bold mb-2">My Collaborations</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
                             {mycollabs.map((card, index) => (
-                                <Card key={index} link={`/design/${card._id}`} title={card.title} />
+                                <Card key={index} link={`/design/${card.canvasId}`} title={card.title} />
                             ))}
                         </div>
 
                         <h2 className="text-2xl font-bold mb-2">Collaborations Been Added</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
                             {collabsBeenAdded.map((card, index) => (
-                                <Card key={index} link={`/design/${card._id}`} title={card.title} />
+                                <Card key={index} link={`/design/${card.canvasId}`} title={card.title} />
                             ))}
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-4 p-4 h-[400px]">
-                            {/* Card 1 */}
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-                                {editordata.map((card, index) => (
-                                    <Card key={index} link={`/design/${card._id}`} title={card.title} />
-                                ))}
-                            </div>
                         </div>
                     </section>
                 </main>
