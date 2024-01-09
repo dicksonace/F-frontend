@@ -83,10 +83,10 @@ const Team = () => {
             <div className="flex h-screen bg-gray-100">
                 {/* Side Navigation */}
 
-                <SideNav />
+                <SideNav /> 
 
                 {/* Main Content */}
-                <main className="flex-1 flex flex-col overflow-hidden">
+                <main className="flex-1 flex flex-col overflow-hidden b">
                     {/* Top Navigation */}
                     <Header />
 
