@@ -4,6 +4,10 @@ import Header from './components/Header';
 import { GlobalContext } from '../GlobalContext/GlobalContext';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { FaRegCalendarMinus } from 'react-icons/fa';
+import { FcCollaboration } from 'react-icons/fc';
+import { IoMdCreate } from 'react-icons/io';
+import { FaUsers } from 'react-icons/fa';
 
 const Adashboard = () => {
     const [numberOfUsers, setNumberOfUsers] = useState(0);
@@ -50,19 +54,29 @@ const Adashboard = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
                             {/* Card 1 */}
-                            <div className="bg-white p-4 rounded shadow-md">
-                                <h5 className="text-[13px] font-semibold text-gray-400 mb-2">Total Users</h5>
-                                <p className="text-2xl font-extrabold">{numberOfUsers}</p>
+
+                            <div className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-[#4E73DF] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
+                                <div className="">
+                                    <h2 className="text-[#B5B9DF] text-[11px] leading-[17px] font--bold">
+                                        Total Users
+                                    </h2>
+                                    <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]">
+                                        {numberOfUsers}
+                                    </h1>
+                                </div>
+                                <FaUsers fontSize={28} color="" />
                             </div>
 
-                            <div className="bg-white p-4 rounded shadow-md">
-                                <h5 className="text-[13px] font-semibold text-gray-400 mb-2">Total Users</h5>
-                                <p className="text-2xl font-extrabold">{numberOfUsers}</p>
-                            </div>
-
-                            <div className="bg-white p-4 rounded shadow-md">
-                                <h5 className="text-[13px] font-semibold text-gray-400 mb-2">Total Users</h5>
-                                <p className="text-2xl font-extrabold">{numberOfUsers}</p>
+                            <div className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-[#4E73DF] flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
+                                <div className="">
+                                    <h2 className="text-[#B5B9DF] text-[11px] leading-[17px] font--bold">
+                                        Total Users
+                                    </h2>
+                                    <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px]">
+                                        {numberOfUsers}
+                                    </h1>
+                                </div>
+                                <FaUsers fontSize={28} color="" />
                             </div>
                         </div>
                     </section>

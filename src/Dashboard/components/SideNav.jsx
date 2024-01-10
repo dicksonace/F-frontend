@@ -10,7 +10,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
 import { FaTachometerAlt, FaRegSun, FaChevronRight, FaWrench } from 'react-icons/fa';
 import { CiMenuBurger } from 'react-icons/ci';
-import { RiTeamLine } from "react-icons/ri";
+import { RiTeamLine } from 'react-icons/ri';
 
 const SideNav = () => {
     const { isAdmin, isSidebarOpen, IsSidebarOpenHandler, userInfo } = useContext(GlobalContext);
@@ -19,15 +19,9 @@ const SideNav = () => {
 
     if (isAdmin) {
         navItem = [
-            { name: 'Template', link: '/udashboard', icon: <LuLayoutTemplate color="white" /> },
-            {
-                name: 'My Creation',
-                link: '/mycreation',
-                icon: <VscGitPullRequestCreate color="white" />,
-            },
+            { name: 'Dashboard', link: '/adashboard', icon: <LuLayoutTemplate color="white" /> },
 
-            { name: 'Profile', link: '/profile', icon: <IoCloudUploadOutline color="white" /> },
-            { name: 'Change Password', link: '/changePassword', icon: <CiSettings color="white" /> },
+            { name: 'Settings', link: '/settings', icon: <CiSettings color="white" /> },
         ];
     } else {
         navItem = [
@@ -50,44 +44,44 @@ const SideNav = () => {
 
     return (
         <div className={`basis-[13%] h-[100vh] lg:block ${isSidebarOpen ? 'fixed z-40' : 'hidden'}`}>
-        <div className="bg-[#4E73DF] h-screen px-[25px]">
-            <div className="px-[15px] py-[30px] flex item justify-between border-b-[1px] border-[#EDEDED]/[0.3]">
-                <h1 className="text-white text-[20px] leading-[24px] font-extrabold cursor-pointer">Fasti</h1>
-                <div className="lg:hidden" onClick={toggleSidebar}>
-                    <FaTimes color="black" />
+            <div className="bg-[#4E73DF] h-screen px-[25px]">
+                <div className="px-[15px] py-[30px] flex item justify-between border-b-[1px] border-[#EDEDED]/[0.3]">
+                    <h1 className="text-white text-[20px] leading-[24px] font-extrabold cursor-pointer">Fasti</h1>
+                    <div className="lg:hidden" onClick={toggleSidebar}>
+                        <FaTimes color="black" />
+                    </div>
                 </div>
-            </div>
-            {userInfo.isAdmin ? (
-                <></>
-            ) : (
-                <>
-                    {' '}
-                    <Link to="/udashboard">
-                        <div className="flex items-center gap-[15px] py-[20px border-b-[1px] border-[#EDEDED]/[0.3]">
-                            <FaTachometerAlt color="white" />
-                            <p className="text-[14px] leading-[20px] font-bold text-white">Dashboard</p>
-                        </div>
-                    </Link>
-                </>
-            )}
-            <div className="pt-[15px] border-b-[1px]  border-[#EDEDED]/[0.3]">
-                <p className="text-[10px] font-extrabold leading-[16px] text-white/[0.4]"></p>
-
-                {navItem.map((item) => {
-                    return (
-                        <Link to={item.link}>
-                            <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
-                                <div className="flex items-center gap-[10px]">
-                                    {item.icon}
-                                    <p className="text-[14px] leading-[20px] font-normal text-white">{item.name}</p>
-                                </div>
-                                <FaChevronRight color="white" />
+                {userInfo.isAdmin ? (
+                    <></>
+                ) : (
+                    <>
+                        {' '}
+                        <Link to="/udashboard">
+                            <div className="flex items-center gap-[15px] py-[20px border-b-[1px] border-[#EDEDED]/[0.3]">
+                                <FaTachometerAlt color="white" />
+                                <p className="text-[14px] leading-[20px] font-bold text-white">Dashboard</p>
                             </div>
                         </Link>
-                    );
-                })}
+                    </>
+                )}
+                <div className="pt-[15px] border-b-[1px]  border-[#EDEDED]/[0.3]">
+                    <p className="text-[10px] font-extrabold leading-[16px] text-white/[0.4]"></p>
+
+                    {navItem.map((item) => {
+                        return (
+                            <Link to={item.link}>
+                                <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
+                                    <div className="flex items-center gap-[10px]">
+                                        {item.icon}
+                                        <p className="text-[14px] leading-[20px] font-normal text-white">{item.name}</p>
+                                    </div>
+                                    <FaChevronRight color="white" />
+                                </div>
+                            </Link>
+                        );
+                    })}
+                </div>
             </div>
-        </div>
         </div>
     );
 };
