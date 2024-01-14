@@ -99,7 +99,7 @@ const Login = () => {
                         Cookies.set('token', res.data.token);
 
                         if (res.data.isAdmin) {
-                            navigate('/');
+                            navigate('/adashboard');
                         } else {
                             navigate('/udashboard');
                         }
